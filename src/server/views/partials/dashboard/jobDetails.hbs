@@ -7,11 +7,12 @@
   Remove
 </button>
 
-{{#eq jobState 'failed'}}
+{{#if showRetryButton}}
   <button class="btn btn-success js-retry-job" data-queue-host="{{ queueHost }}" data-queue-name="{{ queueName }}" data-job-id="{{ this.id }}">
-    Retry
+    {{ retryButtonText }}
   </button>
-{{/eq}}
+{{/if}}
+
 
 <div class="row">
   <div class="col-sm-3">
@@ -48,19 +49,23 @@
 
 {{#unless this.queue.IS_BEE}}
 <h5>Progress</h5>
-<div class="progress">
-  <div class="progress-bar
-              {{#eq jobState 'failed'}}
-              progress-bar-danger
-              {{/eq}}"
-       role="progressbar"
-       aria-valuenow="{{ this._progress }}"
-       aria-valuemin="0"
-       aria-valuemax="100"
-       style="width: {{ this._progress }}%; min-width: 2em;">
-    {{ this._progress }}%
+{{#if (isNumber this._progress)}}
+  <div class="progress">
+    <div class="progress-bar
+                {{#eq jobState 'failed'}}
+                progress-bar-danger
+                {{/eq}}"
+        role="progressbar"
+        aria-valuenow="{{ this._progress }}"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        style="width: {{ this._progress }}%; min-width: 2em;">
+      {{ this._progress }}%
+    </div>
   </div>
-</div>
+{{else}}
+  <pre>{{json this._progress true}}</pre>
+{{/if}}
 {{/unless}}
 
 {{#if this.returnvalue}}
@@ -73,20 +78,16 @@
 <pre><code>{{this.failedReason}}</code></pre>
 {{/if}}
 
-{{#eq jobState 'failed'}}
+{{#if stacktraces}}
   <h5>Stacktraces</h5>
-  {{#if this.options.stacktraces}}
-    {{#each this.options.stacktraces}}
-      <pre>{{ this }}</pre>
-    {{/each}}
-  {{/if}}
+  {{#each stacktraces}}
+    <pre>{{ this }}</pre>
+  {{/each}}
+{{/if}}
 
-  {{#if this.stacktrace}}
-    {{#each this.stacktrace}}
-      <pre>{{ this }}</pre>
-    {{/each}}
-  {{/if}}
-{{/eq}}
 
 <h5>Data</h5>
 <pre><code class="json">{{json this.data true}}</code></pre>
+
+<h5>Logs</h5>
+<pre><code class="json">{{json this.logs true}}</code></pre>

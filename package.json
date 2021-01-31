@@ -5,25 +5,45 @@
   "author": "Mixmax <hello@mixmax.com>",
   "license": "MIT",
   "dependencies": {
-    "bee-queue": "^1.0.0",
     "body-parser": "^1.17.2",
-    "bull": "^3.3.7",
     "express": "^4.15.2",
-    "express-handlebars": "^3.0.0",
-    "handlebars": "^4.0.10",
-    "handlebars-helpers": "^0.10.0",
-    "lodash": "^4.17.4",
-    "nodemon": "^1.18.7",
+    "express-handlebars": "^5.1.0",
+    "handlebars": "^4.7.6",
     "jsoneditor": "^5.9.6",
+    "lodash": "^4.17.15",
+    "moment": "^2.29.1",
     "tablesort": "^5.0.1"
   },
+  "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "@mixmaxhq/prettier-config": "^1.0.0",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/commit-analyzer": "^8.0.1",
+    "@semantic-release/exec": "^5.0.0",
+    "@semantic-release/git": "^9.0.0",
+    "@semantic-release/github": "^7.0.7",
+    "@semantic-release/npm": "^7.0.5",
+    "@semantic-release/release-notes-generator": "^9.0.1",
+    "bee-queue": "^1.2.3",
+    "bull": "^3.16.0",
+    "conventional-changelog-conventionalcommits": "^4.3.0",
+    "prettier": "^2.0.5",
+    "semantic-release": "^17.1.1"
+  },
   "scripts": {
-    "start": "nodemon index.js --ignore 'public/vendor/*'",
-    "inspect": "nodemon --inspect --trace-warnings --ignore 'public/vendor/*' index.js"
+    "ci": "npm run lint && if [ -z \"$CI\" ]; then npm run ci:commitlint; fi",
+    "ci:commitlint": "commitlint --from \"origin/${GITHUB_BASE_REF:-master}\"",
+    "lint": "prettier -c ."
   },
   "engines": {
     "node": ">=7.6.0"
   },
+  "files": [
+    "index.js",
+    "public",
+    "src"
+  ],
   "repository": "https://github.com/bee-queue/arena.git",
-  "version": "2.6.2"
+  "version": "3.7.0"
 }

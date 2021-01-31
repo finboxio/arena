@@ -4,23 +4,21 @@ const bodyParser = require('body-parser');
 const handlebars = require('handlebars');
 const exphbs = require('express-handlebars');
 
-module.exports = function() {
+module.exports = function (config) {
   const hbs = exphbs.create({
     defaultLayout: `${__dirname}/views/layout`,
     handlebars,
     partialsDir: `${__dirname}/views/partials/`,
-    extname: 'hbs'
+    extname: 'hbs',
   });
-
-  require('handlebars-helpers')({handlebars});
 
   const app = express();
 
-  const defaultConfig = require(path.join(__dirname, 'config', 'index.json'));
+  const defaultConfig = require('./config/index.json');
 
   const Queues = require('./queue');
 
-  const queues = new Queues(defaultConfig);
+  const queues = new Queues({ ...defaultConfig, ...config });
   require('./views/helpers/handlebars')(handlebars, { queues });
   app.locals.Queues = queues;
   app.locals.appBasePath = '';
@@ -36,6 +34,6 @@ module.exports = function() {
 
   return {
     app,
-    Queues: app.locals.Queues
+    Queues: app.locals.Queues,
   };
 };

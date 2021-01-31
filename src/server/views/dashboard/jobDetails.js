@@ -6,31 +6,37 @@ async function handler(req, res) {
   const { json } = req.query;
   const basePath = req.baseUrl;
 
-  const {Queues} = req.app.locals;
+  const { Queues } = req.app.locals;
   const queue = await Queues.get(queueName, queueHost);
-  if (!queue) return res.status(404).render('dashboard/templates/queueNotFound', {basePath, queueName, queueHost});
+  if (!queue)
+    return res
+      .status(404)
+      .render('dashboard/templates/queueNotFound', { basePath, queueName, queueHost });
 
   const job = await queue.getJob(id);
-  if (!job) return res.status(404).render('dashboard/templates/jobNotFound', {basePath, id, queueName, queueHost});
+  if (!job)
+    return res
+      .status(404)
+      .render('dashboard/templates/jobNotFound', { basePath, id, queueName, queueHost });
 
   if (json === 'true') {
-    delete job.queue; // avoid circular references parsing error
-    return res.json(job);
+    // Omit these private and non-stringifyable properties to avoid circular
+    // references parsing errors.
+    return res.json(_.omit(job, 'domain', 'queue', '_events', '_eventsCount'));
   }
 
-  let jobState;
-  if (queue.IS_BEE) {
-    jobState = job.status;
-  } else {
-    jobState = await job.getState();
-  }
+  const jobState = queue.IS_BEE ? job.status : await job.getState();
+  job.showRetryButton = !queue.IS_BEE || jobState === 'failed';
+  job.retryButtonText = jobState === 'failed' ? 'Retry' : 'Trigger';
+  const stacktraces = queue.IS_BEE ? job.options.stacktraces : job.stacktrace;
 
   return res.render('dashboard/templates/jobDetails', {
     basePath,
     queueName,
     queueHost,
     jobState,
-    job
+    job,
+    stacktraces,
   });
 }
 
