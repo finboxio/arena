@@ -140,6 +140,13 @@ class Queues {
       return queue.add.apply(queue, args);
     }
   }
+
+  async close() {
+    const closing = Object.keys(this._queues)
+      .flatMap((host) => Object.keys(this._queues[host]).map((name) => this._queues[host][name]))
+      .map((queue) => queue.close());
+    return Promise.all(closing);
+  }
 }
 
 module.exports = Queues;
