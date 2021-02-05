@@ -69,7 +69,7 @@ const helpers = {
   },
 
   capitalize(s) {
-    if (typeof value !== 'string') {
+    if (typeof s !== 'string') {
       return '';
     }
     return s.charAt(0).toUpperCase() + s.slice(1);

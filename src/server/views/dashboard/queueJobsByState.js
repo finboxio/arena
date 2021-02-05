@@ -116,19 +116,17 @@ async function _html(req, res) {
     jobs = jobs.filter((job) => job);
   } else {
     jobs = await queue[`get${_.capitalize(state)}`](startId, endId);
-    await Promise.all(
-      jobs.map(async (job) => {
-        const logs = await queue.getJobLogs(job.id);
-        job.logs = logs.logs || 'No Logs';
-        return job;
-      })
-    );
+    jobs.forEach((job) => {
+      job.logs = 'See Details'
+    })
   }
 
   for (const job of jobs) {
-    const jobState = queue.IS_BEE ? job.status : await job.getState();
-    job.showRetryButton = !queue.IS_BEE || jobState == 'failed';
-    job.retryButtonText = jobState == 'failed' ? 'Retry' : 'Trigger';
+    const failed = queue.IS_BEE
+      ? job.status === 'failed'
+      : (_.isInteger(job.finishedOn) && _.isString(job.failedReason))
+    job.showRetryButton = !queue.IS_BEE || failed;
+    job.retryButtonText = failed ? 'Retry' : 'Trigger';
   }
 
   let pages = _.range(page - 6, page + 7).filter((page) => page >= 1);

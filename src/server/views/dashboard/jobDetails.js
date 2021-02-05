@@ -19,15 +19,25 @@ async function handler(req, res) {
       .status(404)
       .render('dashboard/templates/jobNotFound', { basePath, id, queueName, queueHost });
 
+  const logs = await queue.getJobLogs(job.id);
+  job.logs = logs.logs || 'No Logs';
+
   if (json === 'true') {
     // Omit these private and non-stringifyable properties to avoid circular
     // references parsing errors.
     return res.json(_.omit(job, 'domain', 'queue', '_events', '_eventsCount'));
   }
 
-  const jobState = queue.IS_BEE ? job.status : await job.getState();
-  job.showRetryButton = !queue.IS_BEE || jobState === 'failed';
-  job.retryButtonText = jobState === 'failed' ? 'Retry' : 'Trigger';
+  let jobState = 'unknown'
+  if (_.isInteger(job.finishedOn) && !job.failedReason) jobState = 'completed'
+  else if (_.isInteger(job.processedOn) && !job.finishedOn) jobState = 'active'
+  else if ((job.delay || 0) > 0 && !job.processedOn) jobState = 'delayed'
+  else if (!job.processedOn && !job.delay) jobState = 'waiting'
+  else if (_.isInteger(job.finishedOn) && _.isString(job.failedReason)) jobState = 'failed'
+
+  const failed = queue.IS_BEE ? job.status === 'failed' : job.failedReason
+  job.showRetryButton = !queue.IS_BEE || failed;
+  job.retryButtonText = failed ? 'Retry' : 'Trigger';
   const stacktraces = queue.IS_BEE ? job.options.stacktraces : job.stacktrace;
 
   return res.render('dashboard/templates/jobDetails', {
