@@ -108,8 +108,9 @@ $(document).ready(() => {
 
     let data = {
       queueName,
-      action: 'remove',
+      action,
       jobs: [],
+      queueState,
     };
 
     $bulkActionContainer.each((index, value) => {
@@ -148,7 +149,12 @@ $(document).ready(() => {
   });
 
   $('.js-toggle-add-job-editor').on('click', function () {
-    $('.jsoneditorx').toggleClass('hide');
+    const addJobText = $('.js-toggle-add-job-editor').text();
+    const shouldNotHide = addJobText === 'Add Job';
+    const newAddJobText = shouldNotHide ? 'Cancel' : 'Add Job';
+    $('.jsoneditorx').toggleClass('hide', !shouldNotHide);
+    $('.js-toggle-add-job-editor').text(newAddJobText);
+
     const job = localStorage.getItem('arena:savedJob');
     if (job) {
       const { name, data } = JSON.parse(job);

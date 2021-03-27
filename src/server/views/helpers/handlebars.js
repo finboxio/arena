@@ -18,6 +18,18 @@ const replacer = (key, value) => {
 // For jobs that don't have a valid ID, produce a random ID we can use in its place.
 const idMapping = new WeakMap();
 
+const getTimestamp = (job) => {
+  // Bull
+  if (job.timestamp) {
+    return job.timestamp;
+  }
+
+  // Bee
+  if (job.options && job.options.timestamp) {
+    return job.options.timestamp;
+  }
+};
+
 const helpers = {
   json(obj, pretty = false) {
     const args = [obj, replacer];
@@ -61,6 +73,20 @@ const helpers = {
     return mapping;
   },
 
+  getDelay(job) {
+    // Bull
+    if (job.delay) {
+      return job.delay + getTimestamp(job);
+    }
+
+    // Bee
+    if (job.options && job.options.delay) {
+      return job.options.delay + getTimestamp(job);
+    }
+  },
+
+  getTimestamp,
+
   encodeURI(url) {
     if (typeof url !== 'string') {
       return '';
@@ -68,11 +94,11 @@ const helpers = {
     return encodeURIComponent(url);
   },
 
-  capitalize(s) {
-    if (typeof s !== 'string') {
+  capitalize(value) {
+    if (typeof value !== 'string') {
       return '';
     }
-    return s.charAt(0).toUpperCase() + s.slice(1);
+    return value.charAt(0).toUpperCase() + value.slice(1);
   },
 
   add(a, b) {

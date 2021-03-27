@@ -1,3 +1,82 @@
+## [3.15.0](https://github.com/bee-queue/arena/compare/v3.14.0...v3.15.0) (2021-03-12)
+
+### Features
+
+- **bull:** adding log message in bull example ([eb12399](https://github.com/bee-queue/arena/commit/eb123997662adb832c3bceeff41d3de7332f70aa))
+
+### Bug Fixes
+
+- **queuejobsbystate:** bring logs only in job page ([8ebd5c0](https://github.com/bee-queue/arena/commit/8ebd5c04bfc10bba4d2b4d814cef1663d05e070a))
+
+## [3.14.0](https://github.com/bee-queue/arena/compare/v3.13.0...v3.14.0) (2021-03-10)
+
+### Features
+
+- **jobdetails:** adding executes at detail ([2e88919](https://github.com/bee-queue/arena/commit/2e88919d81c07f074b5ff8f035bdca5fadcc2225))
+- **jobdetails:** support executes at for bee queue ([03b4932](https://github.com/bee-queue/arena/commit/03b493293c316ae044c6cbb471f0048f0c1308e7))
+
+## [3.13.0](https://github.com/bee-queue/arena/compare/v3.12.0...v3.13.0) (2021-03-08)
+
+### Features
+
+- **jobdetails:** showing processed on and finished on ([48ca96a](https://github.com/bee-queue/arena/commit/48ca96a655f503c294668f6680714208afd9351b))
+
+### Bug Fixes
+
+- **capitalize:** using passed value to be capitalized ([2d98fee](https://github.com/bee-queue/arena/commit/2d98fee0ebd1eeb7db4a5ab271ae8db8bc2394e8))
+
+## [3.12.0](https://github.com/bee-queue/arena/compare/v3.11.0...v3.12.0) (2021-03-08)
+
+### Features
+
+- better example showing jobs move through states ([7c0bc7c](https://github.com/bee-queue/arena/commit/7c0bc7c8697d20513ebf8314295dd866f61112e7))
+
+## [3.11.0](https://github.com/bee-queue/arena/compare/v3.10.0...v3.11.0) (2021-03-07)
+
+### Features
+
+- **bull:** adding example for failed and completed jobs ([8e1fdbc](https://github.com/bee-queue/arena/commit/8e1fdbc4d493d61b2a6a2e0d585cfb7c82ffc098))
+
+### Bug Fixes
+
+- **bulkaction:** handling retry logic in bulk ([d396dac](https://github.com/bee-queue/arena/commit/d396dac9bd4588b74599ae8b5e87e7997c08f0b9))
+- **bulkaction:** use queuestate to differentiate logic ([62f72cf](https://github.com/bee-queue/arena/commit/62f72cf14d5a5ef68e59bbdbf1f2ba2e70763f23))
+- **deps:** delete jsoneditor dependency ([17bc341](https://github.com/bee-queue/arena/commit/17bc341deffd10c18ba4a8531d37b74953af90a9))
+
+## [3.10.0](https://github.com/bee-queue/arena/compare/v3.9.0...v3.10.0) (2021-03-02)
+
+### Features
+
+- **bull:** adding bull in example ([da1ad97](https://github.com/bee-queue/arena/commit/da1ad97f6fd5ce765718c10bfec278f830c1f85b))
+- **queuejobsbystate:** retry bulk delayed jobs ([d3eb2bf](https://github.com/bee-queue/arena/commit/d3eb2bf3d2dedbe44f683f172cef121e59a45bca))
+
+### Bug Fixes
+
+- **bee-queue:** disable retry jobs button for bee-queue ([57dc1d6](https://github.com/bee-queue/arena/commit/57dc1d61100e1f2d6fa7d9a726287c21cd63c201))
+
+## [3.9.0](https://github.com/bee-queue/arena/compare/v3.8.0...v3.9.0) (2021-02-25)
+
+### Features
+
+- add contributing guidelines and working example ([8616383](https://github.com/bee-queue/arena/commit/86163830e3ed7d94c7b48ef21b9c058671ebd8f3))
+
+## [3.8.0](https://github.com/bee-queue/arena/compare/v3.7.1...v3.8.0) (2021-02-22)
+
+### Features
+
+- **queuejobsbystate:** adding order dropdown ([c5d21a0](https://github.com/bee-queue/arena/commit/c5d21a0d4e15cb2444f904d199440707cf8fac6d))
+
+### Bug Fixes
+
+- **queuejobsbystate:** apply descending ordering for jobs when using bull queue ([1e1f891](https://github.com/bee-queue/arena/commit/1e1f8910bc3499419f4370dd45998df7b9317b8a))
+
+### [3.7.1](https://github.com/bee-queue/arena/compare/v3.7.0...v3.7.1) (2021-02-18)
+
+### Bug Fixes
+
+- **dashboard:** change shouldHide condition ([5722b55](https://github.com/bee-queue/arena/commit/5722b551be4b7142806d39cc4c4297eb19cd3f13))
+- **dashboard:** refresh page when adding a new job ([0fa5d02](https://github.com/bee-queue/arena/commit/0fa5d02ec03a53909de5519b0a2aa8f5f38065de))
+
 ## [3.7.0](https://github.com/bee-queue/arena/compare/v3.6.1...v3.7.0) (2020-12-16)
 
 ### Features
