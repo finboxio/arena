@@ -1,3 +1,5 @@
+const express = require('express');
+const path = require('path');
 const Arena = require('../');
 const Bull = require('bull');
 const RedisServer = require('redis-server');
@@ -19,7 +21,7 @@ async function main() {
   });
 
   // Fake process function to move newly created jobs in the UI through a few of the job states.
-  queue.process(async function (job) {
+  queue.process(async function () {
     // Wait 5sec
     await new Promise((res) => setTimeout(res, 5000));
 
@@ -30,10 +32,10 @@ async function main() {
   });
 
   // adding delayed jobs
-  const delayedJob = await queue.add({}, { delay: Date.now() + 60 * 1000 });
+  const delayedJob = await queue.add({}, {delay: 60 * 1000});
   delayedJob.log('Log message');
 
-  Arena(
+  const app = Arena(
     {
       Bull,
 
@@ -54,11 +56,14 @@ async function main() {
           },
         },
       ],
+      customJsPath: 'http://localhost:4735/example.js',
     },
     {
       port: HTTP_SERVER_PORT,
     }
   );
+
+  app.use(express.static(path.join(__dirname, 'public')));
 }
 
 main().catch((err) => {

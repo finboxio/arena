@@ -9,7 +9,7 @@ async function handler(req, res) {
   if (!job) return res.status(404).send({error: 'job not found'});
 
   try {
-    await job.remove();
+    await job.promote();
     return res.sendStatus(200);
   } catch (e) {
     const body = {

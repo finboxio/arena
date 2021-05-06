@@ -1,23 +1,27 @@
 const _ = require('lodash');
-const util = require('util');
 
 async function handler(req, res) {
-  const { queueName, queueHost, id } = req.params;
-  const { json } = req.query;
+  const {queueName, queueHost, id} = req.params;
+  const {json} = req.query;
   const basePath = req.baseUrl;
 
-  const { Queues } = req.app.locals;
+  const {Queues} = req.app.locals;
   const queue = await Queues.get(queueName, queueHost);
   if (!queue)
-    return res
-      .status(404)
-      .render('dashboard/templates/queueNotFound', { basePath, queueName, queueHost });
+    return res.status(404).render('dashboard/templates/queueNotFound', {
+      basePath,
+      queueName,
+      queueHost,
+    });
 
   const job = await queue.getJob(id);
   if (!job)
-    return res
-      .status(404)
-      .render('dashboard/templates/jobNotFound', { basePath, id, queueName, queueHost });
+    return res.status(404).render('dashboard/templates/jobNotFound', {
+      basePath,
+      id,
+      queueName,
+      queueHost,
+    });
 
   const logs = await queue.getJobLogs(job.id);
   job.logs = logs.logs || 'No Logs';
@@ -38,6 +42,7 @@ async function handler(req, res) {
   const failed = queue.IS_BEE ? job.status === 'failed' : job.failedReason
   job.showRetryButton = !queue.IS_BEE || failed;
   job.retryButtonText = failed ? 'Retry' : 'Trigger';
+  job.showPromoteButton = !queue.IS_BEE && jobState === 'delayed';
   const stacktraces = queue.IS_BEE ? job.options.stacktraces : job.stacktrace;
 
   if (!queue.IS_BEE) {

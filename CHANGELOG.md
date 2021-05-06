@@ -1,3 +1,64 @@
+### [3.20.1](https://github.com/bee-queue/arena/compare/v3.20.0...v3.20.1) (2021-04-15)
+
+### Bug Fixes
+
+- **jsoneditor:** adding map file ([f374f98](https://github.com/bee-queue/arena/commit/f374f98bdc2594dfea147a7309b306522557ac3d))
+
+## [3.20.0](https://github.com/bee-queue/arena/compare/v3.19.0...v3.20.0) (2021-04-13)
+
+### Features
+
+- **promote:** adding Promote Jobs button ([c0e0d59](https://github.com/bee-queue/arena/commit/c0e0d590c02f986d0671551fed28dbdcfb379e86))
+
+### Bug Fixes
+
+- **lintstage:** applying eslint only to js to avoid conflicts with changelog ([4914b10](https://github.com/bee-queue/arena/commit/4914b1042738a6365b09b2fe81364ad81b4c2af3))
+
+## [3.19.0](https://github.com/bee-queue/arena/compare/v3.18.0...v3.19.0) (2021-04-05)
+
+### Features
+
+- **bull:** add button to promote delayed job ([73031dd](https://github.com/bee-queue/arena/commit/73031dd8e9b59821e07c2da32ddaa638bcf722cf))
+
+### Bug Fixes
+
+- merge conflicts ([4484f3e](https://github.com/bee-queue/arena/commit/4484f3e81aac311f36f1b96fe0a6c256ee89380c))
+- solve merge conflicts ([1a5661c](https://github.com/bee-queue/arena/commit/1a5661c8b6d2da272b6335681abd451eb970102c))
+
+## [3.18.0](https://github.com/bee-queue/arena/compare/v3.17.1...v3.18.0) (2021-04-05)
+
+### Features
+
+- **customjspath:** customize layout by custom script ([b5e3651](https://github.com/bee-queue/arena/commit/b5e3651be5974aba783cb6d834c4c159baa1953a))
+
+### Bug Fixes
+
+- **bull:** link reference ([04e87f2](https://github.com/bee-queue/arena/commit/04e87f28c0081a18ef62aebe6607c4c212efe389))
+- merge conflicts ([1ce7788](https://github.com/bee-queue/arena/commit/1ce778833ba8638afbfb57af4a33b43e6ae25d6c))
+- merge conflicts ([fabdae3](https://github.com/bee-queue/arena/commit/fabdae3fff6f8123f0b0c97f96a2e35923cd06c9))
+
+### [3.17.1](https://github.com/bee-queue/arena/compare/v3.17.0...v3.17.1) (2021-04-05)
+
+### Bug Fixes
+
+- fixes misplaced parameters ([4b98628](https://github.com/bee-queue/arena/commit/4b986281786be13d6c7dda89d24776298edbf6b2))
+
+## [3.17.0](https://github.com/bee-queue/arena/compare/v3.16.0...v3.17.0) (2021-03-31)
+
+### Features
+
+- simpler labels ([653bc7c](https://github.com/bee-queue/arena/commit/653bc7c48c57160d042b351388731285049721df))
+
+### Bug Fixes
+
+- wrong "execute at" date ([3d0a4d1](https://github.com/bee-queue/arena/commit/3d0a4d14511fc0a3f9a3101a2b94d812eb8f9bb9))
+
+## [3.16.0](https://github.com/bee-queue/arena/compare/v3.15.0...v3.16.0) (2021-03-31)
+
+### Features
+
+- add optional custom css ([3f68dc1](https://github.com/bee-queue/arena/commit/3f68dc11da5a57f6b298825d3118a8b244c60a90))
+
 ## [3.15.0](https://github.com/bee-queue/arena/compare/v3.14.0...v3.15.0) (2021-03-12)
 
 ### Features
