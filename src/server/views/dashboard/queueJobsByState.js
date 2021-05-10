@@ -125,7 +125,15 @@ async function _html(req, res) {
   }
 
   for (const job of jobs) {
-    const jobState = queue.IS_BEE ? job.status : await job.getState();
+    let jobState = 'unknown';
+    if (_.isInteger(job.finishedOn) && !job.failedReason)
+      jobState = 'completed';
+    else if (_.isInteger(job.processedOn) && !job.finishedOn)
+      jobState = 'active';
+    else if ((job.delay || 0) > 0 && !job.processedOn) jobState = 'delayed';
+    else if (!job.processedOn && !job.delay) jobState = 'waiting';
+    else if (_.isInteger(job.finishedOn) && _.isString(job.failedReason))
+      jobState = 'failed';
     job.showRetryButton = !queue.IS_BEE || jobState === 'failed';
     job.retryButtonText = jobState === 'failed' ? 'Retry' : 'Trigger';
     job.showPromoteButton = !queue.IS_BEE && jobState === 'delayed';
